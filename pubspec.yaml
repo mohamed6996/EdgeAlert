@@ -2,7 +2,7 @@ name: edge_alert
 description: A Flutter package that shows alert from top or bottom of the screen .
 version: 0.0.1
 author: Mohamed Ali <mohamed.ali6996@hotmail.com>
-homepage:
+homepage: https://github.com/mohamed6996/EdgeAlert
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
