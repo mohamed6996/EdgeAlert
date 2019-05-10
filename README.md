@@ -25,6 +25,7 @@ description   | 'Your description goes here'
 icon    | IconData (Default: Icons.notifications)
 backgroundColor | Color() (Default Colors.grey)
 duration| EdgeAlert.LENGTH_SHORT(1 second, Default) or EdgeAlert.LENGTH_LONG(2 sec) or EdgeAlert.LENGTH_VERY_LONG(3 sec)
+slideGravity| EdgeAlert.RIGHT or EdgeAlert.LEFT
 gravity | EdgeAlert.TOP(Default) or EdgeAlert.BOTTOM
 
 ![EdgeAlert](https://github.com/mohamed6996/EdgeAlert/blob/master/screenshots/GIF.gif)
