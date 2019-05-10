@@ -1,6 +1,7 @@
 library edge_alert;
 
 import 'package:flutter/material.dart';
+import 'package:instacheeta/widgets/rtl_text.dart';
 
 class EdgeAlert {
   static final int LENGTH_SHORT = 1; //1 seconds
@@ -10,11 +11,15 @@ class EdgeAlert {
   static final int TOP = 1;
   static final int BOTTOM = 2;
 
+  static final int LEFT = 1;
+  static final int RIGHT = 2;
+
   static void show(BuildContext context,
       {String title,
       String description,
       int duration,
       int gravity,
+      int slideGravity,
       Color backgroundColor,
       IconData icon}) {
     OverlayView.createView(context,
@@ -22,6 +27,7 @@ class EdgeAlert {
         description: description,
         duration: duration,
         gravity: gravity,
+        slideGravity: slideGravity,
         backgroundColor: backgroundColor,
         icon: icon);
   }
@@ -46,7 +52,8 @@ class OverlayView {
       int duration,
       int gravity,
       Color backgroundColor,
-      IconData icon}) {
+      IconData icon,
+      int slideGravity}) {
     _overlayState = Navigator.of(context).overlay;
 
     if (!_isVisible) {
@@ -58,6 +65,7 @@ class OverlayView {
           description: description,
           overlayDuration: duration == null ? EdgeAlert.LENGTH_SHORT : duration,
           gravity: gravity == null ? EdgeAlert.TOP : gravity,
+          slideGravity: slideGravity == null ? EdgeAlert.LEFT : slideGravity,
           backgroundColor:
               backgroundColor == null ? Colors.grey : backgroundColor,
           icon: icon == null ? Icons.notifications : icon,
@@ -84,6 +92,7 @@ class EdgeOverlay extends StatefulWidget {
   final int gravity;
   final Color backgroundColor;
   final IconData icon;
+  final int slideGravity;
 
   EdgeOverlay(
       {this.title,
@@ -91,7 +100,8 @@ class EdgeOverlay extends StatefulWidget {
       this.overlayDuration,
       this.gravity,
       this.backgroundColor,
-      this.icon});
+      this.icon,
+      this.slideGravity});
 
   @override
   _EdgeOverlayState createState() => _EdgeOverlayState();
@@ -111,7 +121,8 @@ class _EdgeOverlayState extends State<EdgeOverlay>
         AnimationController(vsync: this, duration: Duration(milliseconds: 750));
 
     if (widget.gravity == 1) {
-      _positionTween = Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset.zero);
+      _positionTween =
+          Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset.zero);
     } else {
       _positionTween =
           Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset(0.0, 0));
@@ -161,10 +172,10 @@ class _EdgeOverlayState extends State<EdgeOverlay>
               widget.gravity == 1 ? 20 : 35),
           color: widget.backgroundColor,
           child: OverlayWidget(
-            title: widget.title,
-            description: widget.description,
-            iconData: widget.icon,
-          ),
+              title: widget.title,
+              description: widget.description,
+              iconData: widget.icon,
+              slideGravity: widget.slideGravity),
         ),
       ),
     );
@@ -175,8 +186,13 @@ class OverlayWidget extends StatelessWidget {
   final String title;
   final String description;
   final IconData iconData;
+  final int slideGravity;
 
-  OverlayWidget({this.title = '', this.description = '', this.iconData});
+  OverlayWidget(
+      {this.title = '',
+      this.description = '',
+      this.iconData,
+      this.slideGravity});
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +200,6 @@ class OverlayWidget extends StatelessWidget {
       type: MaterialType.transparency,
       child: Row(
         children: <Widget>[
-          AnimatedIcon(iconData: iconData),
           Padding(padding: EdgeInsets.only(right: 15)),
           Expanded(
               child: Column(
@@ -194,19 +209,30 @@ class OverlayWidget extends StatelessWidget {
                   ? Container()
                   : Padding(
                       padding: EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        title,
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Align(
+                          alignment: slideGravity == EdgeAlert.LEFT
+                              ? Alignment.centerLeft
+                              : Alignment.centerRight,
+                          child: Text(
+                            title,
+                          ),
+                        ),
                       ),
                     ),
-              description == null
-                  ? Container()
-                  : Text(
-                      description,
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    )
+              Align(
+                alignment: slideGravity == EdgeAlert.LEFT
+                    ? Alignment.centerLeft
+                    : Alignment.centerRight,
+                child: description == null
+                    ? Container()
+                    : Text(description),
+              )
             ],
           )),
+          Padding(padding: EdgeInsets.only(right: 15)),
+          AnimatedIcon(iconData: iconData),
         ],
       ),
     );
