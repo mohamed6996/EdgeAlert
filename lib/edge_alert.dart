@@ -216,10 +216,8 @@ class OverlayWidget extends StatelessWidget {
                           alignment: slideGravity == EdgeAlert.LEFT
                               ? Alignment.centerLeft
                               : Alignment.centerRight,
-                          child: RTLText(
-                            title: title,
-                            fontFamily: 'IranSansBold',
-                            fontSize: 14.0,
+                          child: Text(
+                            title
                           ),
                         ),
                       ),
@@ -230,7 +228,7 @@ class OverlayWidget extends StatelessWidget {
                     : Alignment.centerRight,
                 child: description == null
                     ? Container()
-                    : RTLText(title: description),
+                    : Text(description),
               )
             ],
           )),
