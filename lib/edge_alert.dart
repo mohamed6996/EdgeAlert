@@ -200,6 +200,7 @@ class OverlayWidget extends StatelessWidget {
       type: MaterialType.transparency,
       child: Row(
         children: <Widget>[
+          if (slideGravity == EdgeAlert.LEFT) AnimatedIcon(iconData: iconData),
           Padding(padding: EdgeInsets.only(right: 15)),
           Expanded(
               child: Column(
@@ -215,8 +216,10 @@ class OverlayWidget extends StatelessWidget {
                           alignment: slideGravity == EdgeAlert.LEFT
                               ? Alignment.centerLeft
                               : Alignment.centerRight,
-                          child: Text(
-                            title,
+                          child: RTLText(
+                            title: title,
+                            fontFamily: 'IranSansBold',
+                            fontSize: 14.0,
                           ),
                         ),
                       ),
@@ -227,12 +230,12 @@ class OverlayWidget extends StatelessWidget {
                     : Alignment.centerRight,
                 child: description == null
                     ? Container()
-                    : Text(description),
+                    : RTLText(title: description),
               )
             ],
           )),
           Padding(padding: EdgeInsets.only(right: 15)),
-          AnimatedIcon(iconData: iconData),
+          if (slideGravity == EdgeAlert.RIGHT) AnimatedIcon(iconData: iconData),
         ],
       ),
     );
