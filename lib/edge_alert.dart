@@ -128,8 +128,7 @@ class _EdgeOverlayState extends State<EdgeOverlay>
           Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset(0.0, 0));
     }
 
-    _positionAnimation = _positionTween.animate(
-        CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn));
+    _positionAnimation = _positionTween.animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
 
     _controller.forward();
 
