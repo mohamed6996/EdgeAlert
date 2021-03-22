@@ -1,5 +1,7 @@
 library edge_alert;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class EdgeAlert {
@@ -10,20 +12,28 @@ class EdgeAlert {
   static final int TOP = 1;
   static final int BOTTOM = 2;
 
-  static void show(BuildContext context,
-      {String title,
-      String description,
-      int duration,
-      int gravity,
-      Color backgroundColor,
-      IconData icon}) {
-    OverlayView.createView(context,
-        title: title,
-        description: description,
-        duration: duration,
-        gravity: gravity,
-        backgroundColor: backgroundColor,
-        icon: icon);
+  static void show(
+    BuildContext context, {
+    String title,
+    TextStyle titleStyle,
+    String description,
+    TextStyle descriptionStyle,
+    int duration,
+    int gravity,
+    Color backgroundColor,
+    IconData icon,
+  }) {
+    OverlayView.createView(
+      context,
+      title: title,
+      titleStyle: titleStyle,
+      description: description,
+      descriptionStyle: descriptionStyle,
+      duration: duration,
+      gravity: gravity,
+      backgroundColor: backgroundColor,
+      icon: icon,
+    );
   }
 }
 
@@ -40,29 +50,38 @@ class OverlayView {
   static OverlayEntry _overlayEntry;
   static bool _isVisible = false;
 
-  static void createView(BuildContext context,
-      {String title,
-      String description,
-      int duration,
-      int gravity,
-      Color backgroundColor,
-      IconData icon}) {
+  static void createView(
+    BuildContext context, {
+    String title,
+    TextStyle titleStyle,
+    String description,
+    TextStyle descriptionStyle,
+    int duration,
+    int gravity,
+    Color backgroundColor,
+    IconData icon,
+  }) {
     _overlayState = Navigator.of(context).overlay;
 
     if (!_isVisible) {
       _isVisible = true;
 
-      _overlayEntry = OverlayEntry(builder: (context) {
-        return EdgeOverlay(
-          title: title,
-          description: description,
-          overlayDuration: duration == null ? EdgeAlert.LENGTH_SHORT : duration,
-          gravity: gravity == null ? EdgeAlert.TOP : gravity,
-          backgroundColor:
-              backgroundColor == null ? Colors.grey : backgroundColor,
-          icon: icon == null ? Icons.notifications : icon,
-        );
-      });
+      _overlayEntry = OverlayEntry(
+        builder: (context) {
+          return EdgeOverlay(
+            title: title,
+            titleStyle: titleStyle,
+            description: description,
+            descriptionStyle: descriptionStyle,
+            overlayDuration:
+                duration == null ? EdgeAlert.LENGTH_SHORT : duration,
+            gravity: gravity == null ? EdgeAlert.TOP : gravity,
+            backgroundColor:
+                backgroundColor == null ? Colors.grey : backgroundColor,
+            icon: icon == null ? Icons.notifications : icon,
+          );
+        },
+      );
 
       _overlayState.insert(_overlayEntry);
     }
@@ -79,19 +98,24 @@ class OverlayView {
 
 class EdgeOverlay extends StatefulWidget {
   final String title;
+  final TextStyle titleStyle;
   final String description;
+  final TextStyle descriptionStyle;
   final int overlayDuration;
   final int gravity;
   final Color backgroundColor;
   final IconData icon;
 
-  EdgeOverlay(
-      {this.title,
-      this.description,
-      this.overlayDuration,
-      this.gravity,
-      this.backgroundColor,
-      this.icon});
+  EdgeOverlay({
+    this.title,
+    this.titleStyle,
+    this.description,
+    this.descriptionStyle,
+    this.overlayDuration,
+    this.gravity,
+    this.backgroundColor,
+    this.icon,
+  });
 
   @override
   _EdgeOverlayState createState() => _EdgeOverlayState();
@@ -107,18 +131,26 @@ class _EdgeOverlayState extends State<EdgeOverlay>
   void initState() {
     super.initState();
 
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 750));
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 750),
+    );
 
     if (widget.gravity == 1) {
-      _positionTween = Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset.zero);
+      _positionTween = Tween<Offset>(
+        begin: Offset(0.0, -1.0),
+        end: Offset.zero,
+      );
     } else {
-      _positionTween =
-          Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset(0.0, 0));
+      _positionTween = Tween<Offset>(
+        begin: Offset(0.0, 1.0),
+        end: Offset(0.0, 0),
+      );
     }
 
     _positionAnimation = _positionTween.animate(
-        CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn));
+      CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn),
+    );
 
     _controller.forward();
 
@@ -162,7 +194,9 @@ class _EdgeOverlayState extends State<EdgeOverlay>
           color: widget.backgroundColor,
           child: OverlayWidget(
             title: widget.title,
+            titleStyle: widget.titleStyle,
             description: widget.description,
+            descriptionStyle: widget.descriptionStyle,
             iconData: widget.icon,
           ),
         ),
@@ -173,10 +207,19 @@ class _EdgeOverlayState extends State<EdgeOverlay>
 
 class OverlayWidget extends StatelessWidget {
   final String title;
+  final TextStyle titleStyle;
   final String description;
+  final TextStyle descriptionStyle;
+
   final IconData iconData;
 
-  OverlayWidget({this.title = '', this.description = '', this.iconData});
+  OverlayWidget({
+    this.title = '',
+    this.description = '',
+    this.iconData,
+    this.titleStyle,
+    this.descriptionStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -187,26 +230,24 @@ class OverlayWidget extends StatelessWidget {
           AnimatedIcon(iconData: iconData),
           Padding(padding: EdgeInsets.only(right: 15)),
           Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              title == null
-                  ? Container()
-                  : Padding(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: Text(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                title == null
+                    ? Container(height: 0.0)
+                    : Text(
                         title,
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        style: titleStyle,
                       ),
-                    ),
-              description == null
-                  ? Container()
-                  : Text(
-                      description,
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    )
-            ],
-          )),
+                description == null
+                    ? Container(height: 0.0)
+                    : Text(
+                        description,
+                        style: descriptionStyle,
+                      )
+              ],
+            ),
+          ),
         ],
       ),
     );

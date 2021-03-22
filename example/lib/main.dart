@@ -47,19 +47,18 @@ class _MyHomePageState extends State<MyHomePage> {
     EdgeAlert.show(
       context,
       title: 'Title',
+      titleStyle: TextStyle(color: Colors.white, fontSize: 20),
       description: longDesc,
       gravity: EdgeAlert.TOP,
     );
   }
 
   void _differentIcon() {
-    EdgeAlert.show(
-      context,
-      title: 'Title',
-      description: 'Description',
-      gravity: EdgeAlert.TOP,
-      icon: Icons.disc_full
-    );
+    EdgeAlert.show(context,
+        title: 'Title',
+        description: 'Description',
+        gravity: EdgeAlert.TOP,
+        icon: Icons.disc_full);
   }
 
   @override
@@ -96,8 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text('Long Description'),
             ),
-
-             RaisedButton(
+            RaisedButton(
               onPressed: () {
                 _differentIcon();
               },
