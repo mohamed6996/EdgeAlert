@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c67a8cc-fc08-4a5f-9a5d-24998ed23b59" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/edge_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/edge_alert.dart" afterDir="false" />
-    </list>
+    <list default="true" id="8c67a8cc-fc08-4a5f-9a5d-24998ed23b59" name="Default Changelist" comment="Project module android updated to androidx.&#10;Title and description styles, added." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +27,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="f23b78c8-27d5-42cb-98c0-0c209eb312be" />
   </component>
   <component name="KotlinMultiplatform">
     <allAvailableExecutables />
@@ -50,24 +66,55 @@
       <option name="presentableId" value="Default" />
       <updated>1616428523192</updated>
     </task>
+    <task id="LOCAL-00001" summary="Project module android updated to androidx.&#10;Title and description styles, added.">
+      <created>1616430494575</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1616430494575</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Project module android updated to androidx.&#10;Title and description styles, added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Project module android updated to androidx.&#10;Title and description styles, added." />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1234" height="178" key="GridCell.Tab.0.bottom" timestamp="1616430184120">
+    <state x="469" y="301" key="Github.Dialog.Accounts.Choose" timestamp="1616430511675">
       <screen x="0" y="23" width="1280" height="719" />
     </state>
-    <state width="1234" height="178" key="GridCell.Tab.0.bottom/0.23.1280.719@0.23.1280.719" timestamp="1616430184120" />
-    <state width="1234" height="178" key="GridCell.Tab.0.center" timestamp="1616430184119">
+    <state x="469" y="301" key="Github.Dialog.Accounts.Choose/0.23.1280.719@0.23.1280.719" timestamp="1616430511675" />
+    <state width="1234" height="178" key="GridCell.Tab.0.bottom" timestamp="1616430589351">
       <screen x="0" y="23" width="1280" height="719" />
     </state>
-    <state width="1234" height="178" key="GridCell.Tab.0.center/0.23.1280.719@0.23.1280.719" timestamp="1616430184119" />
-    <state width="1234" height="178" key="GridCell.Tab.0.left" timestamp="1616430184119">
+    <state width="1234" height="178" key="GridCell.Tab.0.bottom/0.23.1280.719@0.23.1280.719" timestamp="1616430589351" />
+    <state width="1234" height="178" key="GridCell.Tab.0.center" timestamp="1616430589351">
       <screen x="0" y="23" width="1280" height="719" />
     </state>
-    <state width="1234" height="178" key="GridCell.Tab.0.left/0.23.1280.719@0.23.1280.719" timestamp="1616430184119" />
-    <state width="1234" height="178" key="GridCell.Tab.0.right" timestamp="1616430184119">
+    <state width="1234" height="178" key="GridCell.Tab.0.center/0.23.1280.719@0.23.1280.719" timestamp="1616430589351" />
+    <state width="1234" height="178" key="GridCell.Tab.0.left" timestamp="1616430589350">
       <screen x="0" y="23" width="1280" height="719" />
     </state>
-    <state width="1234" height="178" key="GridCell.Tab.0.right/0.23.1280.719@0.23.1280.719" timestamp="1616430184119" />
+    <state width="1234" height="178" key="GridCell.Tab.0.left/0.23.1280.719@0.23.1280.719" timestamp="1616430589350" />
+    <state width="1234" height="178" key="GridCell.Tab.0.right" timestamp="1616430589351">
+      <screen x="0" y="23" width="1280" height="719" />
+    </state>
+    <state width="1234" height="178" key="GridCell.Tab.0.right/0.23.1280.719@0.23.1280.719" timestamp="1616430589351" />
+    <state x="240" y="122" key="Vcs.Push.Dialog.v2" timestamp="1616430500520">
+      <screen x="0" y="23" width="1280" height="719" />
+    </state>
+    <state x="240" y="122" key="Vcs.Push.Dialog.v2/0.23.1280.719@0.23.1280.719" timestamp="1616430500520" />
   </component>
 </project>
