@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -31,6 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showAlert(bool isFromTop) {
     EdgeAlert.show(context,
         title: 'Title',
+        backgroundColor: Colors.grey,
+        duration: EdgeAlert.LENGTH_SHORT,
+        icon: Icons.error,
         description: 'Description',
         gravity: isFromTop ? EdgeAlert.TOP : EdgeAlert.BOTTOM);
   }
@@ -38,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void _colorfullAlert() {
     EdgeAlert.show(context,
         title: 'Title',
+        icon: Icons.error,
+        duration: EdgeAlert.LENGTH_SHORT,
         description: 'Description',
         gravity: EdgeAlert.TOP,
         backgroundColor: Colors.red);
@@ -48,18 +53,21 @@ class _MyHomePageState extends State<MyHomePage> {
       context,
       title: 'Title',
       description: longDesc,
+      backgroundColor: Colors.red,
+      duration: EdgeAlert.BOTTOM,
+      icon: Icons.verified,
       gravity: EdgeAlert.TOP,
     );
   }
 
   void _differentIcon() {
-    EdgeAlert.show(
-      context,
-      title: 'Title',
-      description: 'Description',
-      gravity: EdgeAlert.TOP,
-      icon: Icons.disc_full
-    );
+    EdgeAlert.show(context,
+        title: 'Title',
+        backgroundColor: Colors.green,
+        duration: EdgeAlert.LENGTH_LONG,
+        description: 'Description',
+        gravity: EdgeAlert.TOP,
+        icon: Icons.disc_full);
   }
 
   @override
@@ -72,32 +80,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 _showAlert(true);
               },
               child: Text('From Top'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 _showAlert(false);
               },
               child: Text('From Bottom'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 _colorfullAlert();
               },
               child: Text('Colorfull Alert'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 _longDescAlert();
               },
               child: Text('Long Description'),
             ),
-
-             RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 _differentIcon();
               },
