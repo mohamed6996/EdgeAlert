@@ -3,20 +3,20 @@ library edge_alert;
 import 'package:flutter/material.dart';
 
 class EdgeAlert {
-  static final int LENGTH_SHORT = 1; //1 seconds
-  static final int LENGTH_LONG = 2; // 2 seconds
-  static final int LENGTH_VERY_LONG = 3; // 3 seconds
+  static const LENGTH_SHORT = 1; //1 seconds
+  static const LENGTH_LONG = 2; // 2 seconds
+  static const LENGTH_VERY_LONG = 3; // 3 seconds
 
-  static final int TOP = 1;
-  static final int BOTTOM = 2;
+  static const TOP = 1;
+  static const BOTTOM = 2;
 
   static void show(BuildContext context,
-      {String title,
-      String description,
-      int duration,
-      int gravity,
-      Color backgroundColor,
-      IconData icon}) {
+      {required String title,
+      required String description,
+      required int duration,
+      required int gravity,
+      required Color backgroundColor,
+      required IconData icon}) {
     OverlayView.createView(context,
         title: title,
         description: description,
@@ -28,7 +28,7 @@ class EdgeAlert {
 }
 
 class OverlayView {
-  static final OverlayView _singleton = new OverlayView._internal();
+  static final OverlayView _singleton = OverlayView._internal();
 
   factory OverlayView() {
     return _singleton;
@@ -36,17 +36,17 @@ class OverlayView {
 
   OverlayView._internal();
 
-  static OverlayState _overlayState;
-  static OverlayEntry _overlayEntry;
+  static OverlayState? _overlayState;
+  static late OverlayEntry _overlayEntry;
   static bool _isVisible = false;
 
   static void createView(BuildContext context,
-      {String title,
-      String description,
-      int duration,
-      int gravity,
-      Color backgroundColor,
-      IconData icon}) {
+      {required String title,
+      required String description,
+      required int duration,
+      required int gravity,
+      required Color backgroundColor,
+      required IconData icon}) {
     _overlayState = Navigator.of(context).overlay;
 
     if (!_isVisible) {
@@ -56,15 +56,14 @@ class OverlayView {
         return EdgeOverlay(
           title: title,
           description: description,
-          overlayDuration: duration == null ? EdgeAlert.LENGTH_SHORT : duration,
-          gravity: gravity == null ? EdgeAlert.TOP : gravity,
-          backgroundColor:
-              backgroundColor == null ? Colors.grey : backgroundColor,
-          icon: icon == null ? Icons.notifications : icon,
+          overlayDuration: duration,
+          gravity: gravity,
+          backgroundColor: backgroundColor,
+          icon: icon,
         );
       });
 
-      _overlayState.insert(_overlayEntry);
+      _overlayState?.insert(_overlayEntry);
     }
   }
 
@@ -73,7 +72,7 @@ class OverlayView {
       return;
     }
     _isVisible = false;
-    _overlayEntry?.remove();
+    _overlayEntry.remove();
   }
 }
 
@@ -86,12 +85,12 @@ class EdgeOverlay extends StatefulWidget {
   final IconData icon;
 
   EdgeOverlay(
-      {this.title,
-      this.description,
-      this.overlayDuration,
-      this.gravity,
-      this.backgroundColor,
-      this.icon});
+      {required this.title,
+      required this.description,
+      required this.overlayDuration,
+      required this.gravity,
+      required this.backgroundColor,
+      required this.icon});
 
   @override
   _EdgeOverlayState createState() => _EdgeOverlayState();
@@ -99,9 +98,9 @@ class EdgeOverlay extends StatefulWidget {
 
 class _EdgeOverlayState extends State<EdgeOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Tween<Offset> _positionTween;
-  Animation<Offset> _positionAnimation;
+  late AnimationController _controller;
+  late Tween<Offset> _positionTween;
+  late Animation<Offset> _positionAnimation;
 
   @override
   void initState() {
@@ -111,7 +110,8 @@ class _EdgeOverlayState extends State<EdgeOverlay>
         AnimationController(vsync: this, duration: Duration(milliseconds: 750));
 
     if (widget.gravity == 1) {
-      _positionTween = Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset.zero);
+      _positionTween =
+          Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset.zero);
     } else {
       _positionTween =
           Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset(0.0, 0));
@@ -176,7 +176,8 @@ class OverlayWidget extends StatelessWidget {
   final String description;
   final IconData iconData;
 
-  OverlayWidget({this.title = '', this.description = '', this.iconData});
+  OverlayWidget(
+      {this.title = '', this.description = '', required this.iconData});
 
   @override
   Widget build(BuildContext context) {
@@ -190,21 +191,17 @@ class OverlayWidget extends StatelessWidget {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              title == null
-                  ? Container()
-                  : Padding(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        title,
-                        style: TextStyle(color: Colors.white, fontSize: 22),
-                      ),
-                    ),
-              description == null
-                  ? Container()
-                  : Text(
-                      description,
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    )
+              Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Text(
+                  title,
+                  style: TextStyle(color: Colors.white, fontSize: 22),
+                ),
+              ),
+              Text(
+                description,
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              )
             ],
           )),
         ],
@@ -216,7 +213,7 @@ class OverlayWidget extends StatelessWidget {
 class AnimatedIcon extends StatefulWidget {
   final IconData iconData;
 
-  AnimatedIcon({this.iconData});
+  AnimatedIcon({required this.iconData});
 
   @override
   _AnimatedIconState createState() => _AnimatedIconState();
@@ -224,7 +221,7 @@ class AnimatedIcon extends StatefulWidget {
 
 class _AnimatedIconState extends State<AnimatedIcon>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
